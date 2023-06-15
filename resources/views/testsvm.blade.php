@@ -111,76 +111,99 @@ use Phpml\FeatureExtraction\TfIdfTransformer;
 
 
 
-$samples = ['Sách "Hai số phận" của tác giả Nguyễn Ngọc Tư do nhà xuất bản Kim Đồng xuất bản vào năm bao nhiêu?',
-            'Sách mới nhất bạn có bán là gì?',
-            'Bạn có bán sách giáo khoa không?',
-            'Tôi muốn tìm hiểu thêm về sách của Dan Brown, bạn có thể giới thiệu cho tôi không?',
-            'Bạn có thể giới thiệu cho tôi một số cuốn sách mới nhất không?',
-            'Tôi cần tìm sách về lịch sử của Việt Nam. Bạn có thể giới thiệu cho tôi một số tác phẩm không?',
-            'Bạn có thể giới thiệu cho tôi các tác phẩm của Shakespeare không?',
-            'Bạn có sách mới nhất nào về kinh doanh không?',
-            'Giới thiệu về sách "Mắt biếc" của tác giả Nguyễn Nhật Ánh được xuất bản vào năm bao nhiêu?',
-            'Bạn có thể giới thiệu cho tôi sách nổi bật nhất của năm?',
-            //--
-            'Tôi muốn mua cuốn sách "Mắt biếc" giá bao nhiêu?',
-            'Có khuyến mãi gì cho sách "Thế giới và chúng ta" không?',
-            'Có được giảm giá khi mua sách "Số đỏ" không?',
-            'Tôi muốn tìm hiểu giá sách của bạn. Bạn có thể cho tôi biết giá sách mới nhất được không?',
-            'Sách bán chạy nhất của tháng này giá bao nhiêu?',
-            'Giá sách giáo khoa lớp 10 là bao nhiêu?',
-            'Bạn có chương trình khuyến mãi nào cho các loại sách không?',
-            'Tôi muốn tìm sách về lập trình PHP, giá bao nhiêu?',
-            'Bạn có sách nào về thiết kế đồ họa không?',
-            'Sách bán chạy nhất của tháng này giá bao nhiêu?',
-            //--
-            'Phí vận chuyển của cuốn sách "Tôi tài giỏi - bạn cũng thế" là bao nhiêu?',
-            'Tôi muốn mua sách và giao hàng đến địa chỉ của tôi. Bạn có thể cho tôi biết chi phí vận chuyển được không?',
-            'Tôi muốn biết thời gian giao hàng dự kiến của đơn hàng của tôi.',
-            'Thời gian giao hàng của đơn hàng này là bao lâu?',
-            'Bạn có miễn phí vận chuyển không?',
-            'Thời gian giao hàng của bạn là bao lâu?',
-            'Bạn có vận chuyển quốc tế không?',
-            'Sách được giao bằng đường nào?',
-            'Khi nào tôi có thể nhận được sách đã đặt?',
-            'Bạn có thể gửi hàng đến địa chỉ khác không?',
-            //--
-            'Tôi muốn thanh toán bằng thẻ ngân hàng thì có được không?',
-            'Tôi muốn biết phương thức thanh toán bạn hỗ trợ.',
-            'Tôi muốn mua sách bằng thẻ tín dụng. Bạn có chấp nhận thanh toán bằng thẻ tín dụng không?',
-            'Bạn có phương thức thanh toán nào khác không?',
-            'Phương thức thanh toán nào bạn chấp nhận?',
-            'Tôi có thể thanh toán bằng thẻ tín dụng không?',
-            'Bạn có hỗ trợ thanh toán COD không?',
-            'Bạn có chấp nhận thanh toán bằng Paypal không?',
-            'Bạn có những phương thức thanh toán nào?',
-            'Tôi muốn biết thông tin về phương thức thanh toán.',
-            //-- 
-            'Bạn có cuốn sách nào giúp học tiếng Anh tốt không?',
-            'Tôi muốn hỏi về chương trình khuyến mãi của bạn. Bạn có chương trình khuyến mãi nào đang diễn ra không?',
-            'Bạn có địa chỉ cửa hàng gần nhất của bạn không?',
-            'Bạn có bán quà tặng không?',
-            'Tôi có thể yêu cầu gói quà tặng không?',
-            'Tôi có thể yêu cầu in tên lên sách không?',
-            'Bạn có sách bằng tiếng Anh không?',
-            'Bạn có thể tìm kiếm sách theo tên tác giả được không?',
-            'Tôi có thể đặt mua sách trên trang web của bạn được không?',
-            'Tôi muốn biết nếu tôi không hài lòng với sách tôi đã mua thì tôi có thể đổi sách hoặc được hoàn tiền không?',
-];
-$labels = ['Giới thiệu sách', 'Giới thiệu sách', 'Giới thiệu sách', 'Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách',
-          'Giá sách', 'Giá sách', 'Giá sách', 'Giá sách', 'Giá sách','Giá sách', 'Giá sách', 'Giá sách', 'Giá sách','Giá sách',
-          'Vận chuyển', 'Vận chuyển', 'Vận chuyển','Vận chuyển','Vận chuyển','Vận chuyển', 'Vận chuyển', 'Vận chuyển','Vận chuyển','Vận chuyển',
-          'Thanh toán' ,'Thanh toán', 'Thanh toán', 'Thanh toán', 'Thanh toán','Thanh toán' ,'Thanh toán', 'Thanh toán', 'Thanh toán', 'Thanh toán',
-          'Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác'
-          ];
-
-
-// $samples = ['Tôi muốn tìm hiểu thêm về sách của Dan Brown, bạn có thể giới thiệu cho tôi không?',
+// $samples = ['Sách "Hai số phận" của tác giả Nguyễn Ngọc Tư do nhà xuất bản Kim Đồng xuất bản vào năm bao nhiêu?',
+//             'Sách mới nhất bạn có bán là gì?',
+//             'Bạn có bán sách giáo khoa không?',
+//             'Tôi muốn tìm hiểu thêm về sách của Dan Brown, bạn có thể giới thiệu cho tôi không?',
+//             'Bạn có thể giới thiệu cho tôi một số cuốn sách mới nhất không?',
+//             'Tôi cần tìm sách về lịch sử của Việt Nam. Bạn có thể giới thiệu cho tôi một số tác phẩm không?',
 //             'Bạn có thể giới thiệu cho tôi các tác phẩm của Shakespeare không?',
+//             'Bạn có sách mới nhất nào về kinh doanh không?',
+//             'Giới thiệu về sách "Mắt biếc" của tác giả Nguyễn Nhật Ánh được xuất bản vào năm bao nhiêu?',
 //             'Bạn có thể giới thiệu cho tôi sách nổi bật nhất của năm?',
+//             //--
 //             'Tôi muốn mua cuốn sách "Mắt biếc" giá bao nhiêu?',
+//             'Có khuyến mãi gì cho sách "Thế giới và chúng ta" không?',
 //             'Có được giảm giá khi mua sách "Số đỏ" không?',
-//             'Tôi muốn tìm sách về lập trình PHP, giá bao nhiêu?'];
-// $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
+//             'Tôi muốn tìm hiểu giá sách của bạn. Bạn có thể cho tôi biết giá sách mới nhất được không?',
+//             'Sách bán chạy nhất của tháng này giá bao nhiêu?',
+//             'Giá sách giáo khoa lớp 10 là bao nhiêu?',
+//             'Bạn có chương trình khuyến mãi nào cho các loại sách không?',
+//             'Tôi muốn tìm sách về lập trình PHP, giá bao nhiêu?',
+//             'Bạn có sách nào về thiết kế đồ họa không?',
+//             'Sách bán chạy nhất của tháng này giá bao nhiêu?',
+//             //--
+//             'Phí vận chuyển của cuốn sách "Tôi tài giỏi - bạn cũng thế" là bao nhiêu?',
+//             'Tôi muốn mua sách và giao hàng đến địa chỉ của tôi. Bạn có thể cho tôi biết chi phí vận chuyển được không?',
+//             'Tôi muốn biết thời gian giao hàng dự kiến của đơn hàng của tôi.',
+//             'Thời gian giao hàng của đơn hàng này là bao lâu?',
+//             'Bạn có miễn phí vận chuyển không?',
+//             'Thời gian giao hàng của bạn là bao lâu?',
+//             'Bạn có vận chuyển quốc tế không?',
+//             'Sách được giao bằng đường nào?',
+//             'Khi nào tôi có thể nhận được sách đã đặt?',
+//             'Bạn có thể gửi hàng đến địa chỉ khác không?',
+//             //--
+//             'Tôi muốn thanh toán bằng thẻ ngân hàng thì có được không?',
+//             'Tôi muốn biết phương thức thanh toán bạn hỗ trợ.',
+//             'Tôi muốn mua sách bằng thẻ tín dụng. Bạn có chấp nhận thanh toán bằng thẻ tín dụng không?',
+//             'Bạn có phương thức thanh toán nào khác không?',
+//             'Phương thức thanh toán nào bạn chấp nhận?',
+//             'Tôi có thể thanh toán bằng thẻ tín dụng không?',
+//             'Bạn có hỗ trợ thanh toán COD không?',
+//             'Bạn có chấp nhận thanh toán bằng Paypal không?',
+//             'Bạn có những phương thức thanh toán nào?',
+//             'Tôi muốn biết thông tin về phương thức thanh toán.',
+//             //-- 
+//             'Bạn có cuốn sách nào giúp học tiếng Anh tốt không?',
+//             'Tôi muốn hỏi về chương trình khuyến mãi của bạn. Bạn có chương trình khuyến mãi nào đang diễn ra không?',
+//             'Bạn có địa chỉ cửa hàng gần nhất của bạn không?',
+//             'Bạn có bán quà tặng không?',
+//             'Tôi có thể yêu cầu gói quà tặng không?',
+//             'Tôi có thể yêu cầu in tên lên sách không?',
+//             'Bạn có sách bằng tiếng Anh không?',
+//             'Bạn có thể tìm kiếm sách theo tên tác giả được không?',
+//             'Tôi có thể đặt mua sách trên trang web của bạn được không?',
+//             'Tôi muốn biết nếu tôi không hài lòng với sách tôi đã mua thì tôi có thể đổi sách hoặc được hoàn tiền không?',
+// ];
+// $labels = ['Giới thiệu sách', 'Giới thiệu sách', 'Giới thiệu sách', 'Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách','Giới thiệu sách',
+//           'Giá sách', 'Giá sách', 'Giá sách', 'Giá sách', 'Giá sách','Giá sách', 'Giá sách', 'Giá sách', 'Giá sách','Giá sách',
+//           'Vận chuyển', 'Vận chuyển', 'Vận chuyển','Vận chuyển','Vận chuyển','Vận chuyển', 'Vận chuyển', 'Vận chuyển','Vận chuyển','Vận chuyển',
+//           'Thanh toán' ,'Thanh toán', 'Thanh toán', 'Thanh toán', 'Thanh toán','Thanh toán' ,'Thanh toán', 'Thanh toán', 'Thanh toán', 'Thanh toán',
+//           'Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác','Khác'
+//           ];
+
+
+
+          $samples = [];
+          $labels = ['Sách hay', 'Sách hay', 'Sách hay', 'Sách hay', 'Sách hay', 
+                    'Tâm lý', 'Tâm lý', 'Tâm lý', 'Tâm lý', 'Tâm lý'];
+          // Đường dẫn đến file CSV
+$csvFile = '../database/Questions.csv';
+
+// Mở file CSV
+if (($handle = fopen($csvFile, 'r')) !== false) {
+    // Bỏ qua dòng tiêu đề (nếu có)
+    // fgetcsv($handle);
+
+    // Đọc từng dòng dữ liệu
+    while (($data = fgetcsv($handle)) !== false) {
+        // Lấy câu hỏi từ cột tương ứng trong file CSV
+        $question = $data[0];
+
+        // Lấy nhãn (label) từ cột tương ứng trong file CSV
+        // $label = $data[1];
+
+        // Thêm câu hỏi và nhãn vào mảng samples và labels
+        $samples[] = $question;
+
+    }
+
+    // Đóng file CSV
+    fclose($handle);
+}
+echo json_encode($samples);
+
 
 function preprocessQuestion($question)
 {
@@ -227,7 +250,7 @@ $classifier = new SVC(Kernel::LINEAR, $cost = 1000);
 $classifier->train($preprocessedSamples, $labels);
 
 
-$Inputquestion = 'Bạn có thể giới thiệu cho tôi sách Conan không?';
+$Inputquestion = 'Bạn có thể giới thiệu cho tôi quyển sách bán chạy nhất không?';
 // Tiền xử lý
 $preprocessedInputQuestion = [preprocessQuestion($Inputquestion)];
 
@@ -242,6 +265,7 @@ $predictedLabel = $classifier->predict($preprocessedInputQuestion);
 // echo json_encode($transformedInputQuestion);
 // echo json_encode($transformedQuestion);
 echo json_encode($predictedLabel);
+echo($predictedLabel[0]);
 
 //----------------------------------------------------------------------------------------
 

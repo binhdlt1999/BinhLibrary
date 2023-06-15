@@ -180,4 +180,4 @@ Route::match(['get', 'post'], 'botman', [BotmanController::class, 'handle']);
 // });
 
 //svm test
-// route::view('svm','testsvm');
+route::view('svm','testsvm');

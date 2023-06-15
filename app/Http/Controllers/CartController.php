@@ -232,7 +232,7 @@ class CartController extends Controller
     }
 
     public function submitAddress(Request $request) {
-        // $request contain (idVoucher, idDonhang, tongtien, giagiam, tamtinh)
+        // $request contain (idVoucher, idDonhang, tongtien, giagiam, tamtinh);
         $validator = Validator::make($request->all(), [
             'ho' => ['required', 'regex:/^[\pL\s\-]+$/u'],
             'ten' => ['required', 'regex:/^[\pL\s\-]+$/u'],
@@ -389,12 +389,12 @@ class CartController extends Controller
     public function create($donhang) {
 
         //-----------------------dl test 1
-        $vnp_TmnCode = "EL699STV"; //Website ID in VNPAY System
-        $vnp_HashSecret = "NJPELURNRUGWYPYSEUHZRNHDJTBPUMSE"; //Secret key
+        // $vnp_TmnCode = "EL699STV"; //Website ID in VNPAY System
+        // $vnp_HashSecret = "NJPELURNRUGWYPYSEUHZRNHDJTBPUMSE"; //Secret key
 
         //-----------------------dl test 2
-        // $vnp_TmnCode = "DURSJHST"; //Website ID in VNPAY System
-        // $vnp_HashSecret = "LHWVNMITRALGGRNTHOSFXAIMXBCMMBUN"; //Secret key
+        $vnp_TmnCode = "93TJYACQ"; //Website ID in VNPAY System
+        $vnp_HashSecret = "OBPESIAUJCOMHLRLYCUNTLUQSTMTXDMN"; //Secret key
         //----------------------------------
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -455,7 +455,7 @@ class CartController extends Controller
 
     public function ipn()
     {
-        $vnp_HashSecret = "NJPELURNRUGWYPYSEUHZRNHDJTBPUMSE"; //Secret key
+        $vnp_HashSecret = "OBPESIAUJCOMHLRLYCUNTLUQSTMTXDMN"; //Secret key
 
         $inputData = array();
         $returnData = array();

@@ -88,19 +88,20 @@ class TuVanChonSach extends Conversation
         $gia = $this->gia;
         $tacgia = $this->tacgia;
 
+        $chitietsach = chitietloaisach::query();
+        $chitietsach = $chitietsach ->where('id_l', 'like', "$theloai");
+        $idsach = $chitietsach->pluck('id');
+        
         $sach = sach::query();
-        $sach = $sach->with([
-                    'theloai' => fn($query) => 
-                        $query->where('id_l', $theloai)
-        ]);
         if ($tacgia != null) {
             $sach = $sach->where('tacgia', 'like', "%$tacgia%");
         }
-        $sach = $sach->where('gia', '<=', (int)$gia)
+
+        $sach = $sach->whereIn('id', $idsach)
+                ->where('gia', '<=', (int)$gia)
                 ->where('soluong', '>=', 1)
                 ->where('trangthaikinhdoanh', 1)
                 ->first();
-
         if ($sach !=null) {
             $tensach = $sach->tensach;
             $this->say('Bot đã tìm thấy rồi: ' . $tensach);

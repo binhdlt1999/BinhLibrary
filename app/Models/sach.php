@@ -21,7 +21,9 @@ class sach extends Model
         'soluong',
         'keyword',
         'created_at',
-        'trangthaikinhdoanh'
+        'trangthaikinhdoanh',
+        'loai',
+        'xuatxu'
     ];
 
     public function theloai()

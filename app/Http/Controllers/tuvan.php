@@ -103,23 +103,13 @@ class tuvan extends Conversation
         $tensach = $this->tensach;
 
         $sach = sach::query();
-
-        // tìm thể loại
-        // $sach = $sach->with([
-        //             'theloai' => fn($query) => 
-        //                 $query->where('id_l', $theloai)
-        // ]);
-        // if ($tacgia != null) {
-        //     $sach = $sach->where('tacgia', 'like', "%$tacgia%");
-        // }
+        $chitietsach = chitietloaisach::query();
+        $chitietsach = $chitietsach ->where('id_l', 'like', "$theloai");
+        $idsach = $chitietsach->pluck('id');
         
         // Thể loại, tác giả, tên sách có
         if ($theloai != null && $tacgia != null && $tensach != null) {
-            $sach = $sach->with([
-                'theloai' => fn($query) => 
-                    $query->where('id_l', $theloai)
-            ]);
-            $sach = $sach   //->where('gia', '<=', (int)$gia)
+            $sach = $sach->whereIn('id', $idsach)   //->where('gia', '<=', (int)$gia)
                 ->where('tacgia', 'like', "%$tacgia%")
                 ->where('tensach', 'like', "%$tensach%")
                 ->where('soluong', '>=', 1)
@@ -138,11 +128,7 @@ class tuvan extends Conversation
 
         // Thể loại, tác giả có -> Bot gợi ý tên sách
         } elseif ($theloai != null && $tacgia != null) {
-            $sach = $sach->with([
-                'theloai' => fn($query) => 
-                    $query->where('id_l', $theloai)
-            ]);
-            $sach = $sach   
+            $sach = $sach->whereIn('id', $idsach)
                 ->where('tacgia', 'like', "%$tacgia%")
                 ->where('soluong', '>=', 1)
                 ->where('trangthaikinhdoanh', 1)
@@ -162,11 +148,7 @@ class tuvan extends Conversation
 
         // Thể loại, tên sách có -> Khách hàng muốn gt về nó
         } elseif ($theloai != null && $tensach != null) {
-            $sach = $sach->with([
-                'theloai' => fn($query) => 
-                    $query->where('id_l', $theloai)
-            ]);
-            $sach = $sach   
+            $sach = $sach->whereIn('id', $idsach)  
                 ->where('tensach', 'like', "%$tensach%")
                 ->where('soluong', '>=', 1)
                 ->where('trangthaikinhdoanh', 1)
@@ -185,15 +167,11 @@ class tuvan extends Conversation
 
         // Thể loại có -> KH cần gt về 1 sách
         } elseif ($theloai != null) {
-            $sach = $sach->with([
-                'theloai' => fn($query) => 
-                    $query->where('id_l', $theloai)
-            ]);
             $theloais = theloai::all();
             $theloais = $theloais ->where('id', 'like', "$theloai")
                 ->first();
             $theloai = $theloais->tenloai;
-            $sach = $sach   
+            $sach = $sach->whereIn('id', $idsach) 
                 ->where('noibat', 1)
                 ->where('soluong', '>=', 1)
                 ->where('trangthaikinhdoanh', 1)
@@ -289,6 +267,37 @@ class tuvan extends Conversation
             }
         }
 
+    }
+
+    public function sachhay()
+    {
+        $bestSelling = sach::limit(3) // sách bán chạy nhất
+                ->where('noibat', 1)
+                ->with('theloai')
+                ->orderby('created_at', 'desc')
+                ->get();
+
+            $this->say('Bot sẽ gợi ý cho bạn 3 quyển sách đang là bán chạy (best selling) của shop.');
+            foreach ($bestSelling as $book) {
+                $tensach = $book->tensach;
+                $tacgia = $book->tacgia;
+                $idsach = $book->id;
+                // tìm thể loại
+                $chitietsach = chitietloaisach::query();
+                $chitietsach = $chitietsach ->where('id_s', 'like', "$idsach")
+                    ->first();
+                $idloai = $chitietsach->id_l;
+                // query đến bảng the loại
+                $theloais = theloai::query();
+                $theloais = $theloais ->where('id', 'like', "$idloai")
+                    ->first();
+                $theloai = $theloais->tenloai;
+                
+                $message = "Tên sách: $tensach; Tác giả: $tacgia; Thể loại: $theloai";
+                
+                // In thông tin sách ra màn hình chatbot
+                $this->say($message);
+            }
     }
 
 
